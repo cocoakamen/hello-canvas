@@ -1,0 +1,41 @@
+.container {
+  margin:10%;
+  margin-top:20px;
+}
+
+.btn {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  background: #00bcd4;
+  color: white;
+  transition: .4s;
+}
+
+.btn:hover {
+  background: #569199;
+  color: white;
+  cursor: pointer;
+}
+
+input[type='text'] {
+	font: 20px sans-serif;
+  box-sizing: border-box;
+  width:100%;
+	max-width: 800px;
+  padding: 0.2em;
+  margin-bottom: 1em;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: #1b1b1b;
+	border: none;
+	border-bottom: 2px solid #1b2538;
+	background: transparent;
+}
+
+input[type='text']:focus {
+	border-bottom: 2px solid #00bcd4;
+	outline: none;
+}

@@ -1,2 +1,2 @@
 # hello-canvas
-canvasに文字を書いてみた
+canvasに文字を書いて、画像としてDLしてみるテスト
