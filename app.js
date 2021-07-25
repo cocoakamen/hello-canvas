@@ -5,26 +5,50 @@ window.onload = ()=>{
   const canvas = document.querySelector('#board');  //getElementById()等でも可。オブジェクトが取れれば良い。
   const ctx = canvas.getContext('2d');
   ctx.textAlign = 'center';
+  
+  // 画像データ
+  const imageList = [
+    {
+      fileName: 'base_1.png',
+      textX: 30,
+      textY: 200,
+      font:'30px serif',
+    },
+    {
+      fileName: 'base_2.jpg',
+      textX: 100,
+      textY: 260,
+      font: '40px serif',
+    },
+  ]
 
-  // 文字列表示座標
-  const textX = 330;
-  const textY = 200;
-
+  
   // 背景画像
   const baseImage = new Image();
-  baseImage.src = 'base.png';  // 画像のURLを指定
+  let imageIndex = 0;
+  baseImage.src = imageList[imageIndex].fileName;  // 画像のURLを指定
+  // 文字列表示座標
+  let textX = imageList[imageIndex].textX ;
+  let textY = imageList[imageIndex].textY;
+  
+  let imageText = document.getElementById('input-message').value || 'メッセージを入力してね！';
+  
   baseImage.onload = () => {
+    canvas.height  = baseImage.naturalHeight;
+    canvas.width  = baseImage.naturalWidth;
     ctx.drawImage(baseImage, 0, 0);
-    ctx.font = '30px serif';
-    ctx.fillText('メッセージを入力してね！', textX, textY);
+    ctx.font = imageList[imageIndex].font;
+    // 文字列表示座標
+    textX = imageList[imageIndex].textX ;
+    textY = imageList[imageIndex].textY;
+    ctx.fillText(imageText, textX, textY);
   };
 
   document.getElementById('input-message').oninput = ()=>{
-      var inputMessage = document.getElementById('input-message').value;
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(baseImage, 0, 0);
-      ctx.fillText(inputMessage, textX, textY);
-     
+    imageText = document.getElementById('input-message').value;
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.drawImage(baseImage, 0, 0);
+    ctx.fillText(imageText, textX, textY); 
   }
 
   document.getElementById('download-image').onclick = ()=> {
@@ -36,6 +60,12 @@ window.onload = ()=>{
     a.download = 'hello-canvas.png';
     //クリックイベントを発生させる
     a.click();
+  }
+
+  const imageSelectElement = document.getElementById('baseImageOptions')
+  imageSelectElement.onchange = ()=> {
+    imageIndex = imageSelectElement.value
+    baseImage.src = imageList[imageIndex].fileName;  // 画像のURLを指定
   }
 };
 
