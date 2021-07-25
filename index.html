@@ -3,19 +3,28 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" type="text/css" media="print" href="print.css">
 </head>
 
 <body>
   <div class="container">
 
-    <div>
+    <div id="canvas-config">
+      <div id="selectBaseImage">
+        <label for="baseImageLabel">背景画像</label>
+        <select id="baseImageOptions">
+          <option value=0>パンダ</option>
+          <option value=1>オリンピックプラカード風吹き出し</option>
+        </select>  
+      </div>
+
       <input type="text" id="input-message" value="" placeholder="メッセージを入力してね！">
       <span class="btn" id="download-image">
         画像をDLする！
       </span>
     </div>
 
-    <div>
+    <div id="canvas-print">
       <canvas id="board" width="780" height="433"></canvas>
     </div>
 
