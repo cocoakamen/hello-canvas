@@ -49,30 +49,35 @@ window.onload = ()=>{
   // テキスト表示の初期設定
   setTextConfig(imageIndex);
 
+  // テキスト描画
+  const updateText = function(text) {
+    let imageTextRows = [];
+    for(let i = 0; i < Math.ceil(text.length/ textConfig.charsPerLine); i++){
+      imageTextRows.push(text.substr( textConfig.charsPerLine * i , textConfig.charsPerLine ));
+    }
+
+    // 設定文字数ごとの配列をY軸座標をずらしながら描画
+    for (let i =0; i < imageTextRows.length; i++){
+      ctx.fillText(imageTextRows[i], textConfig.x, textConfig.y + textConfig.lineHeight * i); 
+    }
+  }
   // 背景画像ロード時の処理
   baseImage.onload = () => {
     canvas.height  = baseImage.naturalHeight;
     canvas.width  = baseImage.naturalWidth;
     ctx.drawImage(baseImage, 0, 0);
     ctx.font = textConfig.font;
-    console.log(imageText);
-    ctx.fillText(imageText, textConfig.x, textConfig.y);
+    // テキストボックスに入力された文字列を画像ごとに設定された文字数ごとに1行分ずつの配列に分ける
+    updateText(document.getElementById('input-message').value);
   };
 
   document.getElementById('input-message').oninput = ()=>{
-    // テキストボックスに入力された文字列を画像ごとに設定された文字数ごとに1行分ずつの配列に分ける
-    let imageTextOrg = document.getElementById('input-message').value;
-    imageTextRows = [];
-    for(let i = 0; i < Math.ceil(imageTextOrg.length/ textConfig.charsPerLine); i++){
-      imageTextRows.push(imageTextOrg.substr( textConfig.charsPerLine * i , textConfig.charsPerLine ));
-    }
-
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(baseImage, 0, 0);
-    // 設定文字数ごとの配列をY軸座標をずらしながら描画
-    for (let i =0; i < imageTextRows.length; i++){
-      ctx.fillText(imageTextRows[i], textConfig.x, textConfig.y + textConfig.lineHeight * i); 
-    }
+
+    // テキストボックスに入力された文字列を画像ごとに設定された文字数ごとに1行分ずつの配列に分ける
+    updateText(document.getElementById('input-message').value);
   }
 
   document.getElementById('download-image').onclick = ()=> {
@@ -91,7 +96,6 @@ window.onload = ()=>{
     imageIndex = imageSelectElement.value;
     setTextConfig(imageIndex);
     baseImage.src = imageList[imageIndex].fileName;  // 画像のURLを指定
-    imageText = document.getElementById('input-message').value ;
   }
 };
 
