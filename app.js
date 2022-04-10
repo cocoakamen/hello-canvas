@@ -10,6 +10,7 @@ window.onload = () => {
       fileName: "base_1.png",
       textX: 30,
       textY: 150,
+      textColor: '#2f4f4f',
       font: "30px serif",
       charsPerLine: 15,
       lineHeight: 40,
@@ -18,6 +19,7 @@ window.onload = () => {
       fileName: "base_2.jpg",
       textX: 100,
       textY: 260,
+      textColor: '#708090',
       font: "40px serif",
       charsPerLine: 15,
       lineHeight: 45,
@@ -39,6 +41,7 @@ window.onload = () => {
     textConfig = {
       x: imageList[index].textX, // 文字列表示を開始するX座標
       y: imageList[index].textY, // 文字列表示を開始するY座標
+      color: imageList[index].textColor, // 文字列の色
       font: imageList[index].font,
       charsPerLine: imageList[index].charsPerLine, //１行当たりの文字数
       lineHeight: imageList[index].lineHeight, // 改行するときにずらずY座標
@@ -59,6 +62,7 @@ window.onload = () => {
 
     // 設定文字数ごとの配列をY軸座標をずらしながら描画
     for (let i = 0; i < imageTextRows.length; i++) {
+      ctx.fillStyle = textConfig.color;
       ctx.fillText(
         imageTextRows[i],
         textConfig.x,
